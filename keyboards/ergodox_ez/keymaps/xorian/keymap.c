@@ -1,7 +1,7 @@
 // Author: Ken Schalk (aka xorian on reddit, freenode, github,
 // geekhack, deskthority, and other places)
 
-#include "ergodox.h"
+#include "ergodox_ez.h"
 
 // Each layer gets a name for readability, which is then used in the
 // keymap matrix below.
