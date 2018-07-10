@@ -3,45 +3,8 @@
 
 #include "ergodox_infinity.h"
 
-// Each layer gets a name for readability, which is then used in the
-// keymap matrix below.
-
-// Note that using an enum rather than #defines provides
-// auto-numbering.
-enum {
-  // Base alpha layers: QWERTY, COLEMAK, and transitional TARMAK 1-4.  See:
- 
-  // http://forum.colemak.com/viewtopic.php?id=1858
-  
-  L_QW = 0, // default layer : qwerty
-  L_T1,     // alternate alpha layer : tarmak 1
-  L_T2,     // alternate alpha layer : tarmak 2
-  L_T3,     // alternate alpha layer : tarmak 3
-  L_T4,     // alternate alpha layer : tarmak 4
-  L_CM,     // alternate alpha layer : colemak
-
-  // Momentary mirrored alpha layers, allowing one-handed typing of
-  // any letter.  Inspired by Randall Munroe's "Mirrorboard":
-
-  // https://blog.xkcd.com/2007/08/14/mirrorboard-a-one-handed-keyboard-layout-for-the-lazy/
-
-  L_MQ, // mirror qwerty
-  L_M1, // mirror tarmak 1
-  L_M2, // mirror tarmak 2
-  L_M3, // mirror tarmak 3
-  L_M4, // mirror tarmak 4
-  L_MC, // mirror colemak
-
-  // Momentary layers, designed to be ambidextrous to encourage balanced
-  // hand use.  Inspired by davkol's ambidextrous ErgoDox layout:
-
-  // https://geekhack.org/index.php?topic=42772.msg1763886#msg1763886
-
-  L_NB, // number layer
-  L_NV, // navigation layer
-  L_SB, // symbol layer
-  L_MS, // mouse layer
-};
+// Layer enums (shared with the visualizer code)
+#include "xorian_layers.h"
 
 // For readability
 #define _______ KC_TRNS
@@ -604,7 +567,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Navigation: ambidextrous arrow and other navigation keys
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |      |      |      |      |      | Reset|           | Reset|      |      |      |      |      |        |
+ * | Reset  |      |      |      |      |      |      |           |      |      |      |      |      |      | Reset  |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        | Home |  Up  |  End | PgUp |  Ins |      |           |      |  Ins | PgUp | Home |  Up  |  End |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -624,7 +587,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [L_NV] = KEYMAP(
     // left hand
-       _______, _______, _______, _______, _______, _______, RESET,
+        RESET,  _______, _______, _______, _______, _______, _______,
        _______, KC_HOME, KC_UP,   KC_END,  KC_PGUP, KC_INS,  _______,
        _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, KC_DEL,
        _______, _______, _______, _______, _______, _______, _______,
@@ -633,7 +596,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     _______,
                                   _______, _______, _______,
     // right hand
-       RESET,    _______, _______, _______, _______, _______, _______,
+       _______,  _______, _______, _______, _______, _______, RESET,
        _______,  KC_INS,  KC_PGUP, KC_HOME, KC_UP,   KC_END,  _______,
                  KC_DEL,  KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, _______,
        _______,  _______, _______, _______, _______, _______, _______,
@@ -795,31 +758,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
   return;
-}
-
-// Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
-  // Get the default layer (alphas)
-  uint8_t layer = biton32(default_layer_state);
-
-  // Reset the LEDs
-  ergodox_board_led_off();
-  ergodox_right_led_1_off();
-  ergodox_right_led_2_off();
-  ergodox_right_led_3_off();
-
-  // Indicate the default layer (qwerty vs. tarmak vs. colemak) in
-  // binary with the LEDs
-  layer++;
-  if(layer & 1) {
-    ergodox_right_led_1_on();
-  }
-  if(layer & 2) {
-    ergodox_right_led_2_on();
-  }
-  if(layer & 4) {
-    ergodox_right_led_3_on();
-  }
 }
 
 // Switch to a particular alpha layer
