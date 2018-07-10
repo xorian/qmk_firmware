@@ -604,7 +604,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Navigation: ambidextrous arrow and other navigation keys
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |      |      |      |      |      | Reset|           | Reset|      |      |      |      |      |        |
+ * | Reset  |      |      |      |      |      |      |           |      |      |      |      |      |      | Reset  |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        | Home |  Up  |  End | PgUp |  Ins |      |           |      |  Ins | PgUp | Home |  Up  |  End |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -624,7 +624,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [L_NV] = KEYMAP(
     // left hand
-       _______, _______, _______, _______, _______, _______, RESET,
+        RESET,  _______, _______, _______, _______, _______, _______,
        _______, KC_HOME, KC_UP,   KC_END,  KC_PGUP, KC_INS,  _______,
        _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, KC_DEL,
        _______, _______, _______, _______, _______, _______, _______,
@@ -633,7 +633,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     _______,
                                   _______, _______, _______,
     // right hand
-       RESET,    _______, _______, _______, _______, _______, _______,
+       _______,  _______, _______, _______, _______, _______, RESET,
        _______,  KC_INS,  KC_PGUP, KC_HOME, KC_UP,   KC_END,  _______,
                  KC_DEL,  KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, _______,
        _______,  _______, _______, _______, _______, _______, _______,
