@@ -3,6 +3,14 @@
 
 #include "../../config.h"
 
+/* Use I2C */
+
+#define USE_I2C
+
+/* Select hand configuration by EEPROM flag */
+
+#define EE_HANDS
+
 #undef TAPPING_TERM
 #define TAPPING_TERM 300
 #define RETRO_TAPPING
