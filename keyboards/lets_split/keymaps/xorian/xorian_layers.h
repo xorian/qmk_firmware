@@ -36,5 +36,8 @@ enum {
   L_NV, // navigation layer
   L_SB, // symbol layer
   L_MS, // mouse layer
+
+  // Backlight/underglow control layer
+  L_GL,
 };
 
