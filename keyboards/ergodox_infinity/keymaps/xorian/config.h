@@ -11,4 +11,8 @@
 #define TAPPING_FORCE_HOLD
 #define PREVENT_STUCK_MODIFIERS
 
+/* backlight LEDs */
+#undef BACKLIGHT_LEVELS
+#define BACKLIGHT_LEVELS 5
+
 #endif

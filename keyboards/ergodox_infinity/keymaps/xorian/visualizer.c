@@ -41,6 +41,10 @@ static void get_visualizer_layer_and_color(visualizer_state_t* state) {
     state->layer_text = "Colemak";
     saturation = 128;
     break;
+  case L_GQ:
+    state->layer_text = "Game Qwerty";
+    saturation = 0;
+    break;
     // Momentary layers
   case L_NB:
     state->layer_text = "Numbers";
