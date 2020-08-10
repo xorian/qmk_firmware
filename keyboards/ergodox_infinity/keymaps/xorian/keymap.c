@@ -270,6 +270,48 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_LALT,KC_RSFT, KC_BSPC
   ),
 
+/* Game QWERTY, nothing fancy that interferes with game controls
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * | Esc    |   1  |   2  |   3  |   4  |   5  | Enter|           | Enter|   6  |   7  |   8  |   9  |   0  |        |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * | Tab    |   Q  |   W  |   E  |   R  |   T  | LCtl |           | RCtl |   Y  |   U  |   I  |   O  |   P  | [Alpha]|
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |[Mirror]|   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |      |[Mirror]|
+ * |--------+------+------+------+------+------|LShift|           |RShift|------+------+------+------+------+--------|
+ * | LShift | [Num]|   Z  |   X  |   C  |   V  |      |           |      |   B  |   N  |   M  |      | [Num]| RShift |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   | Lctl | LGui |[Mous]| [Nav]| [Sym]|                                       | [Sym]| [Nav]|[Mous]| RGui |      |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |[Mous]| LGui |       | RGui |[Mous]|
+ *                                 ,------|------|------|       |------+------+------.
+ *                                 |      |      |BkSpc |       |      |      |      |
+ *                                 | Space| LCtl |------|       |------|RShift| BkSpc|
+ *                                 |      |      | LAlt |       | LAlt |      |      |
+ *                                 `--------------------'       `--------------------'
+ */
+[L_GQ] = LAYOUT_ergodox(  // layer 0 : default
+      // left hand
+        KC_ESC,         KC_1,         KC_2,    KC_3,    KC_4,   KC_5,   KC_ENT,
+        KC_TAB,         KC_Q,         KC_W,    KC_E,    KC_R,   KC_T,   KC_LCTL,
+        MO(L_MQ),       KC_A,         KC_S,    KC_D,    KC_F,   KC_G,
+        KC_LSFT,        MO(L_NB),     KC_Z,    KC_X,    KC_C,   KC_V,   KC_LSFT,
+        KC_LCTL,        KC_LGUI,      MO(L_MS),MO(L_NV),MO(L_SB),
+                                               MO(L_MS),      KC_LGUI,
+                                                              KC_BSPC,
+                                               KC_SPC,KC_LCTL,KC_LALT,
+        // right hand
+             KC_ENT,      KC_6,   KC_7,    KC_8,    KC_9,    KC_0,     _______,
+             KC_RCTL,     KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,     TD(TD_L),
+                          KC_H,   KC_J,    KC_K,    KC_L,    _______,  MO(L_MQ),
+             KC_RSFT,     KC_B,   KC_N,    KC_M,    _______, MO(L_NB), KC_RSFT,
+	                          MO(L_SB),MO(L_NV),MO(L_MS),KC_RGUI,  _______,
+             KC_RGUI,         MO(L_MS),
+             _______,
+             KC_LALT,KC_RSFT, KC_BSPC
+    ),
+
 /* Mirror QWERTY
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
@@ -792,6 +834,10 @@ void tap_dance_alpha_layer(qk_tap_dance_state_t *state, void *user_data) {
   case 6:
     // Six taps to Tarmak 4
     switch_to_alpha(L_T4);
+    break;
+  case 7:
+    // Seven taps to Game QWERTY
+    switch_to_alpha(L_GQ);
     break;
   default:
     // Anything else back to QWERTY

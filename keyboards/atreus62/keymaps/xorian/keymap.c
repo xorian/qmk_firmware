@@ -3,45 +3,8 @@
 
 #include "atreus62.h"
 
-// Each layer gets a name for readability, which is then used in the
-// keymap matrix below.
-
-// Note that using an enum rather than #defines provides
-// auto-numbering.
-enum {
-  // Base alpha layers: QWERTY, COLEMAK, and transitional TARMAK 1-4.  See:
- 
-  // http://forum.colemak.com/viewtopic.php?id=1858
-  
-  L_QW = 0, // default layer : qwerty
-  L_T1,     // alternate alpha layer : tarmak 1
-  L_T2,     // alternate alpha layer : tarmak 2
-  L_T3,     // alternate alpha layer : tarmak 3
-  L_T4,     // alternate alpha layer : tarmak 4
-  L_CM,     // alternate alpha layer : colemak
-
-  // Momentary mirrored alpha layers, allowing one-handed typing of
-  // any letter.  Inspired by Randall Munroe's "Mirrorboard":
-
-  // https://blog.xkcd.com/2007/08/14/mirrorboard-a-one-handed-keyboard-layout-for-the-lazy/
-
-  L_MQ, // mirror qwerty
-  L_M1, // mirror tarmak 1
-  L_M2, // mirror tarmak 2
-  L_M3, // mirror tarmak 3
-  L_M4, // mirror tarmak 4
-  L_MC, // mirror colemak
-
-  // Momentary layers, designed to be ambidextrous to encourage balanced
-  // hand use.  Inspired by davkol's ambidextrous ErgoDox layout:
-
-  // https://geekhack.org/index.php?topic=42772.msg1763886#msg1763886
-
-  L_NB, // number layer
-  L_NV, // navigation layer
-  L_SB, // symbol layer
-  L_MS, // mouse layer
-};
+// Layer enums (shared)
+#include "xorian_layers.h"
 
 // For readability
 #define _______ KC_TRNS
@@ -184,6 +147,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_LCTL,                   KC_RCTL, KC_H,    KC_N,    KC_E,    KC_I,    KC_O,
   MO(L_NB),KC_Z,    KC_X,    KC_C,    KC_V,    KC_LSFT,                   KC_RSFT, KC_B,    KC_K,    KC_M,    TD(TD_L),MO(L_NB),
   KC_LGUI, MO(L_MS),MO(L_NV),MO(L_SB),MO(L_MC),KC_LALT, KC_SPC,  KC_BSPC, KC_LALT, MO(L_MC),MO(L_SB),MO(L_NV),MO(L_MS),KC_RGUI
+),
+
+/* Game QWERTY, nothing fancy that interferes with game controls
+ * 
+ * ,-----------------------------------------.                   ,-----------------------------------------.
+ * |   1  |   2  |   3  |   4  |   5  | Enter|                   | Enter|   6  |   7  |   8  |   9  |   0  |
+ * |------+------+------+------+-------------|                   |------+------+------+------+-------------|
+ * |   Q  |   W  |   E  |   R  |   T  | Tab  |                   | Tab  |   Y  |   U  |   I  |   O  |   P  |
+ * |------+------+------+------+------+------|                   |------+------+------+------+------+------|
+ * |   A  |   S  |   D  |   F  |   G  | LCtl |                   | RCtl |   H  |   J  |   K  |   L  |      |
+ * |------+------+------+------+------+------|                   |------+------+------+------+------+------|
+ * | [Num]|   Z  |   X  |   C  |   V  |LShift| ,------. ,------. |RShift|   B  |   N  |   M  |[Dflt]| [Num]|
+ * |------+------+------+------+-------------| |Space | | BkSpc| |------+------+------+------+-------------|
+ * | LGui |[Mous]| [Nav]| [Sym]| [Mir]| LAlt | |      | |      | | LAlt | [Mir]| [Sym]| [Nav]|[Mous]| RGui |
+ * `-----------------------------------------' `------' `------' `-----------------------------------------'
+ */
+[L_GQ] = LAYOUT(
+  KC_1,       KC_2,       KC_3,       KC_4,    KC_5,    KC_ENT,                    KC_ENT,  KC_6,           KC_7,       KC_8,       KC_9,    KC_0,
+  KC_Q,       KC_W,       KC_E,       KC_R,    KC_T,    KC_TAB,                    KC_TAB,  KC_Y,           KC_U,       KC_I,       KC_O,    KC_P,
+  KC_A,       KC_S,       KC_D,       KC_F,    KC_G,    KC_LCTL,                   KC_RCTL, KC_H,           KC_J,       KC_K,       KC_L, _______,
+  MO(L_NB),   KC_Z,       KC_X,       KC_C,    KC_V,    KC_LSFT,                   KC_RSFT, KC_B,           KC_N,       KC_M,   TD(TD_L), MO(L_NB),
+  KC_LGUI,MO(L_MS),    MO(L_NV),  MO(L_SB),MO(L_MQ),    KC_LALT, KC_SPC,  KC_BSPC, KC_LALT, MO(L_MQ),   MO(L_SB),   MO(L_NV),   MO(L_MS),  KC_RGUI
 ),
 
 /* Mirror QWERTY
@@ -483,6 +468,10 @@ void tap_dance_alpha_layer(qk_tap_dance_state_t *state, void *user_data) {
   case 6:
     // Six taps to Tarmak 4
     switch_to_alpha(L_T4);
+    break;
+  case 7:
+    // Seven taps to Game QWERTY
+    switch_to_alpha(L_GQ);
     break;
   default:
     // Anything else back to QWERTY
