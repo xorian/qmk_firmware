@@ -14,6 +14,7 @@ enum {
   L_T3,     // alternate alpha layer : tarmak 3
   L_T4,     // alternate alpha layer : tarmak 4
   L_CM,     // alternate alpha layer : colemak
+  L_GQ,     // qwerty for games, no tap/hold modifiers for alphas
 
   // Momentary mirrored alpha layers, allowing one-handed typing of
   // any letter.  Inspired by Randall Munroe's "Mirrorboard":

@@ -136,6 +136,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_LGUI,     MO(L_MS),     MO(L_NV),   MO(L_SB), MO(L_MC), KC_SPC,    KC_BSPC, MO(L_MC),   MO(L_SB),    MO(L_NV),    MO(L_MS),  KC_RGUI
 ),
 
+/* Game QWERTY, nothing fancy that interferes with game controls
+ *
+ * ,-----------------------------------------.  ,-----------------------------------------.
+ * |   Q  |   W  |   E  |   R  |   T  | Enter|  |Enter |   Y  |   U  |   I  |   O  |   P  |
+ * |------+------+------+------+------+------|  |------+------+------+------+------+------|
+ * |   A  |   S  |   D  |   F  |   G  | Tab  |  | Tab  |   H  |   J  |   K  |   L  |[RGB] |
+ * |------+------+------+------+------+------|  |------+------+------+------+------+------|
+ * | [Num]|   Z  |   X  |   C  |   V  | LCtl |  |LShift|   B  |   N  |   M  |[Dflt]|[Num] |
+ * |------+------+------+------+------+------|  |------+------+------+------+-------------|
+ * |LShift|[Mous]| [Nav]| [Sym]| [Mir]| Space|  |BkSpc | [Mir]| [Sym]| [Nav]|[Mous]| RGui |
+ * `------+------+------+------+------+------'  `------+------+------+------+------+------'
+ */
+[L_GQ] = LAYOUT(
+   // left hand                                                          // right hand
+   KC_Q,            KC_W,        KC_E,        KC_R,     KC_T, KC_ENT,    KC_ENT,  KC_Y,           KC_U,        KC_I,        KC_O,    KC_P,
+   KC_A,            KC_S,        KC_D,        KC_F,     KC_G, KC_TAB,    KC_TAB,  KC_H,           KC_J,        KC_K,        KC_L, MO(L_GL),
+   MO(L_NB),        KC_Z,        KC_X,        KC_C,     KC_V, KC_LCTL,   KC_LSFT, KC_B,           KC_N,        KC_M,    TD(TD_L), MO(L_NB),
+   KC_LSFT,     MO(L_MS),     MO(L_NV),   MO(L_SB), MO(L_MQ), KC_SPC,    KC_BSPC, MO(L_MQ),   MO(L_SB),    MO(L_NV),    MO(L_MS),  KC_RGUI
+),
+
 /* Mirror QWERTY
  *
  * ,-----------------------------------------.  ,-----------------------------------------.
@@ -436,6 +456,10 @@ void tap_dance_alpha_layer(qk_tap_dance_state_t *state, void *user_data) {
   case 6:
     // Six taps to Tarmak 4
     switch_to_alpha(L_T4);
+    break;
+  case 7:
+    // Seven taps to Game QWERTY
+    switch_to_alpha(L_GQ);
     break;
   default:
     // Anything else back to QWERTY

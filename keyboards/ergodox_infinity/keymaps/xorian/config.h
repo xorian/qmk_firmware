@@ -4,7 +4,7 @@
 #include "../../config.h"
 
 #undef TAPPING_TERM
-#define TAPPING_TERM 300
+#define TAPPING_TERM 200
 #define RETRO_TAPPING
 #define PERMISSIVE_HOLD
 #define IGNORE_MOD_TAP_INTERRUPT
@@ -14,5 +14,9 @@
 /* backlight LEDs */
 #undef BACKLIGHT_LEVELS
 #define BACKLIGHT_LEVELS 5
+/*
+#define LED_DRIVER_COUNT 1
+#define LED_DRIVER_LED_COUNT 38
+*/
 
 #endif

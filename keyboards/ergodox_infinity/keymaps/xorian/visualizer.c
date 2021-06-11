@@ -1,8 +1,23 @@
 #include "simple_visualizer.h"
 #include "util.h"
+#include "default_animations.h"
+#include "led_backlight_keyframes.h"
 
 // Layer enums (shared with the keymap definition)
 #include "xorian_layers.h"
+
+#define CROSSFADE_TIME 500
+keyframe_animation_t fade_in_all_leds = {
+    .num_frames = 1,
+    .loop = false,
+    .frame_lengths = {
+        CROSSFADE_TIME,
+    },
+    .frame_functions = {
+        led_backlight_keyframe_fade_in_all,
+    },
+};
+
 
 static void get_visualizer_layer_and_color(visualizer_state_t* state) {
   uint8_t saturation = 255;
@@ -57,6 +72,9 @@ static void get_visualizer_layer_and_color(visualizer_state_t* state) {
     break;
   case L_MS:
     state->layer_text = "Mouse";
+    break;
+  case L_GL:
+    state->layer_text = "Backlight";
     break;
   }
   state->target_lcd_color = LCD_COLOR(hue, saturation, 0xFF);
